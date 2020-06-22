@@ -1,0 +1,16 @@
+---
+
+- name: Install unzip
+  apt: name=unzip state=present
+
+- name: Check WP file present
+  stat: path="{{ wp_download_path }}"
+  register: wp_zipped
+
+- name: Download WP
+  get_url: url="{{ wp_url }}" dest="{{ wp_download_path }}"
+  when: wp_zipped.stat.exists == False
+
+- name: Unzip WP
+  unarchive: src="{{ wp_download_path }}" dest="{{ wp_webserver_path }}" copy=no
+

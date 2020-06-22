@@ -1,0 +1,8 @@
+---
+
+- name: WebServer Playbook
+  hosts: webservers
+  roles:
+    - role: nginx
+    - role: php
+    - role: wordpress
